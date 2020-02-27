@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import LeftButtonContoller from "./leftButtonComponent";
-import RightButtonContoller from "./rightButtonComponent";
+import ButtonContoller from "./ButtonComponent";
 import NavigationBarContoller from "./navigationBarComponent";
 import Carousel from "./carouselComponent";
 
@@ -9,6 +8,23 @@ class CarouselComponent extends Component {
     super(props);
     this.handleWindowResize = this.handleWindowResize.bind(this);
   }
+
+  componentDidMount() {
+    this.handleSlides();
+    this.setupListeners();
+    ButtonContoller.rightButtonContoller();
+    ButtonContoller.leftButtonContoller();
+    NavigationBarContoller.naviagtionDotsController();
+  }
+
+  componentWillUnmount() {
+    this.handleSlides();
+    this.removeListeners();
+    ButtonContoller.rightButtonContoller();
+    ButtonContoller.leftButtonContoller();
+    NavigationBarContoller.naviagtionDotsController();
+  }
+
   /* Function evaluates the width of the slides and amount to be 
   shifted by on each time the left right ot nav b uttons are pressed */
   handleSlides() {
@@ -26,16 +42,14 @@ class CarouselComponent extends Component {
     window.addEventListener("resize", this.handleWindowResize);
   }
 
+  removeListeners() {
+    window.removeEventListener("resize", this.handleWindowResize);
+  }
+
   handleWindowResize(_) {
     this.handleSlides();
   }
-  componentDidMount() {
-    this.handleSlides();
-    this.setupListeners();
-    RightButtonContoller.rightButtonContoller();
-    LeftButtonContoller.LeftButtonContoller();
-    NavigationBarContoller.naviagtionDotsController();
-  }
+
   render() {
     return (
       <div>
