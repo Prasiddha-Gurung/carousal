@@ -1,0 +1,7 @@
+button {
+  background: blue;
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+  /* position: absolute; */
+}

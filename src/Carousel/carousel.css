@@ -9,6 +9,7 @@ button:focus {
 }
 .carousel__track-container {
   height: 100%;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -43,6 +44,12 @@ button:focus {
 .carousel-slide--three {
   background-image: url(./Images/carousel_image_3.jpeg);
 }
+.internal-part {
+  display: flex;
+  flex-direction: row;
+  height: 80vh;
+  width: 80vw;
+}
 .carousel__button {
   position: absolute;
   top: 50%;
@@ -51,15 +58,15 @@ button:focus {
   border: 0;
   cursor: pointer;
 }
-.carousel__button--left {
+/* .left {
   left: -40px;
 }
-.carousel__button--right {
+.right {
   right: -40px;
 }
 .carousel__button img {
   width: 25px;
-}
+} */
 .carousel-nav {
   display: flex;
   justify-content: center;
