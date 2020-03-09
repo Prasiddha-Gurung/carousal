@@ -22,7 +22,6 @@ export default function Carousel({
         loopback={loopback}
         moveComponent={moveComponent}
         numberOfComponentsPerSlide={numberOfComponentsPerSlide}
-        moveComponent={moveComponent}
         buttonDisableOnEnds={buttonDisableOnEnds}
         navBarDisable={navBarDisable}
       />

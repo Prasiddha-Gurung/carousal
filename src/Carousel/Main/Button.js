@@ -4,9 +4,11 @@ import "./Button.css";
 export default function Button({
   image,
   isActive = true,
-  transformDistance,
+  transformDistance = "100%",
+  buttonInside = false,
   height = "100%",
-  width = "5vw"
+  width = "5vw",
+  controller
 }) {
   function handleClick() {
     console.log("clicked");
@@ -16,11 +18,12 @@ export default function Button({
       style={{
         height: `${height}`,
         width: `${width}`,
-        transform: transformDistance ? `translate(${transformDistance})` : null,
+        transform: buttonInside ? `translateX(${transformDistance})` : null,
+        background: "rgba(255, 255, 255, 0.1)",
         visibility: isActive ? "visible" : "hidden"
       }}
       disabled={!isActive}
-      onClick={handleClick}
+      onClick={controller}
     >
       <img src={image} />
     </button>
