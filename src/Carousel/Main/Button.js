@@ -10,9 +10,6 @@ export default function Button({
   width = "5vw",
   controller
 }) {
-  function handleClick() {
-    console.log("clicked");
-  }
   return (
     <button
       style={{

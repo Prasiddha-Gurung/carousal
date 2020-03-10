@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import CarouselTrack from "./CarouselTrack";
-import "./Carousel.css";
+import React, { useState, useEffect } from "react";
+import CarouselElement from "./CarouselElement";
 import Button from "./Button";
 import Left from "../Images/left.svg";
 import Right from "../Images/right.svg";
+import CarouselViewport from "../style_components/CarouselViewport";
+import CarouselTrackContainer from "../style_components/carousel-track-container";
+import CarouselTrack from "../style_components/carousel-track";
 
-export default function CarouselViewport({
+export default function CarouselWindow({
   content = [],
   buttonsInside = false,
-  loopback = false,
+  autoScroll = false,
   numberOfComponentsPerSlide = 1,
   moveComponent = false,
   buttonDisableOnEnds = false,
@@ -28,12 +30,10 @@ export default function CarouselViewport({
       setFirstSlideIndex(firstSlideIndex => firstSlideIndex - 1);
       setLastSlideIndex(lastSlideIndex => lastSlideIndex - 1);
       let distance = translateDistance - translationAmount;
-      {
-        if (distance < 0) {
-          setTranslateDistance(0);
-        } else {
-          setTranslateDistance(distance);
-        }
+      if (distance < 0) {
+        setTranslateDistance(0);
+      } else {
+        setTranslateDistance(distance);
       }
     }
   };
@@ -45,18 +45,20 @@ export default function CarouselViewport({
     }
   };
   useEffect(() => {
-    const interval = setInterval(() => {
-      incrementSlides();
-    }, 3000);
-
-    return () => {
-      clearInterval(interval);
-    };
+    if (autoScroll) {
+      const interval = setInterval(() => {
+        incrementSlides();
+      }, 3000);
+      return () => {
+        console.log("end");
+        clearInterval(interval);
+      };
+    }
   });
 
   useEffect(moveTrack, [translateDistance]);
   return (
-    <div className="Carousel-Viewport">
+    <CarouselViewport>
       <Button
         image={Left}
         controller={() => decrementSlides()}
@@ -64,10 +66,10 @@ export default function CarouselViewport({
         transformDistance={"100%"}
         isActive={buttonDisableOnEnds ? firstSlideIndex > 0 : true}
       />
-      <div className="carousel-track-container">
-        <div className="carousel-track">
+      <CarouselTrackContainer>
+        <CarouselTrack className="carousel-track">
           {content.map((item, i) => (
-            <CarouselTrack
+            <CarouselElement
               key={item.id}
               itemNumber={i}
               item={item}
@@ -75,8 +77,8 @@ export default function CarouselViewport({
               selected={i <= lastSlideIndex && i >= firstSlideIndex}
             />
           ))}
-        </div>
-      </div>
+        </CarouselTrack>
+      </CarouselTrackContainer>
       <Button
         image={Right}
         controller={() => incrementSlides()}
@@ -88,6 +90,6 @@ export default function CarouselViewport({
             : true
         }
       />
-    </div>
+    </CarouselViewport>
   );
 }

@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CarouselViewport from "./CarouselViewport";
-import "./Carousel.css";
-
+import Wrapper from "../style_components/Carousel";
 export default function Carousel({
   content = [],
   buttonsInside = false,
-  loopback = false,
   numberOfComponentsPerSlide = 1,
   moveComponent = false,
   buttonDisableOnEnds = false,
-  navBarDisable = false
+  navBarDisable = false,
+  autoScroll = false
 }) {
-  if (loopback === true) {
-    buttonDisableOnEnds = false;
-  }
+  // if (loopback === true) {
+  //   buttonDisableOnEnds = false;
+  // }
   return (
-    <div className="Carousel">
+    <Wrapper>
       <CarouselViewport
         content={content}
         buttonsInside={buttonsInside}
-        loopback={loopback}
         moveComponent={moveComponent}
         numberOfComponentsPerSlide={numberOfComponentsPerSlide}
         buttonDisableOnEnds={buttonDisableOnEnds}
         navBarDisable={navBarDisable}
+        autoScroll={autoScroll}
       />
-    </div>
+    </Wrapper>
   );
 }

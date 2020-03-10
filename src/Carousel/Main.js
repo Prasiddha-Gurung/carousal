@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "./Main/Carousel";
-import Images from "./images";
+// import Images from "./images";
 import Test from "./test";
 export default function Main() {
   const [stuff, setStuff] = useState([]);
@@ -23,9 +23,17 @@ export default function Main() {
     <div>
       <Carousel
         content={some2}
-        numberOfComponentsPerSlide={1}
+        numberOfComponentsPerSlide={3}
         buttonsInside={false}
         buttonDisableOnEnds={true}
+        autoScroll={false}
+      />
+      <Carousel
+        content={some2}
+        numberOfComponentsPerSlide={3}
+        buttonsInside={false}
+        buttonDisableOnEnds={true}
+        autoScroll={false}
       />
     </div>
   );
