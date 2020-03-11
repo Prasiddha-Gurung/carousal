@@ -5,15 +5,26 @@ import Carousel from "./Main/Carousel";
 import Images from "./images";
 
 export default function test({ name, location, rating }) {
-  function handleClick() {
-    console.log("here");
-  }
+  const some = Images.map((item, i) => (
+    <Test
+      key={item.id}
+      name={item.name}
+      location={item.location}
+      rating={item.rating}
+    />
+  ));
   return (
     <Wrapper>
+      <Carousel
+        content={Images}
+        numberOfComponentsPerSlide={3}
+        buttonsInside={true}
+        buttonDisableOnEnds={false}
+        autoScroll={true}
+      ></Carousel>
       <h1>{name}</h1>
-      <h3>{location}</h3>
-      <h3>{rating}</h3>
-      <button onClick={handleClick}>click</button>
+      <h1>{location}</h1>
+      <h1>{rating}</h1>
       <div>
         <img
           src={img1}

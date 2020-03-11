@@ -2,6 +2,7 @@ import React from "react";
 import CarouselViewport from "./CarouselViewport";
 import Wrapper from "../style_components/Carousel";
 export default function Carousel({
+  name_id,
   content = [],
   buttonsInside = false,
   numberOfComponentsPerSlide = 1,
