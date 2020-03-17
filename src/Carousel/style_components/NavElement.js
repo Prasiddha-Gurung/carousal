@@ -8,4 +8,5 @@ export default styled.button`
   background: rgba(0, 0, 0, 0.3);
   margin: 3px;
   cursor: pointer;
+  visibility: ${props => (props.visibility ? "visible" : "hidden")};
 `;
