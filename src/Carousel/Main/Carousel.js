@@ -11,7 +11,9 @@ export default function Carousel({
   autoScroll = false,
   carHeight,
   carWidth,
-  isResponsive = true
+  isResponsive = true,
+  buttonLeftImage,
+  buttonRightImage
 }) {
   if (autoScroll === true) {
     buttonDisableOnEnds = false;
@@ -30,6 +32,8 @@ export default function Carousel({
         buttonDisableOnEnds={buttonDisableOnEnds}
         navBarDisable={navBarDisable}
         autoScroll={autoScroll}
+        left={buttonLeftImage}
+        right={buttonRightImage}
       />
     </Wrapper>
   );

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import CarouselElement from "./CarouselElement";
 import Button from "./Button";
-import Left from "../Images/left.svg";
-import Right from "../Images/right.svg";
 import CarouselViewport from "../style_components/CarouselViewport";
 import CarouselTrackContainer from "../style_components/carousel-track-container";
 import CarouselTrack from "../style_components/carousel-track";
@@ -15,7 +13,9 @@ export default function CarouselWindow({
   numberOfComponentsPerSlide = 1,
   moveComponent = false,
   buttonDisableOnEnds = false,
-  navBarDisable = false
+  navBarDisable = false,
+  left,
+  right
 }) {
   const numberOfSlides = numberOfComponentsPerSlide - 1;
   const [firstSlideIndex, setFirstSlideIndex] = useState(0);
@@ -109,7 +109,7 @@ export default function CarouselWindow({
     >
       <CarouselViewport>
         <Button
-          image={Left}
+          image={left}
           controller={() => decrementSlides()}
           buttonInside={buttonsInside}
           transformDistance={"100%"}
@@ -129,7 +129,7 @@ export default function CarouselWindow({
           </CarouselTrack>
         </CarouselTrackContainer>
         <Button
-          image={Right}
+          image={right}
           controller={() => incrementSlides()}
           buttonInside={buttonsInside}
           transformDistance={"-100%"}
