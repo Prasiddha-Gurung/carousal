@@ -28,9 +28,9 @@ export default function CarouselWindow({
     numberOfComponentsPerSlide
   );
   const track = useRef(null);
-  if (numberOfComponentsPerSlide > 1) {
-    navBarDisable = true;
-  }
+  // if (numberOfComponentsPerSlide > 1) {
+  //   navBarDisable = true;
+  // }
   // const handleWindowResize = () => {
   //   if (window.innerwidth < 900) {
   //     setcomponentPerSlide(1);
@@ -41,7 +41,7 @@ export default function CarouselWindow({
   // useEffect(() => {
   //   window.addEventListener("resize", handleWindowResize);
   //   return () => window.addEventListener("resize", handleWindowResize);
-  // });
+  // }, []);
   const moveTrack = () => {
     track.current.style.transform = "translateX(-" + translateDistance + "%)";
   };

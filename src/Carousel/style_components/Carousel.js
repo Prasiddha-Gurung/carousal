@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export default styled.div`
-  height: ${props => (props.height ? props.height : "65vh")};
-  width: ${props => (props.width ? props.width : "90vw")};
+  height: ${props => (props.carHeight ? props.carHeight : "70vh")};
+  width: ${props => (props.carWidth ? props.carWidth : "90vw")};
   margin: auto;
   display: flex;
   flex-direction: row;

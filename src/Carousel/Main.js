@@ -30,6 +30,7 @@ export default function Main() {
         autoScroll={false}
         buttonLeftImage={Left}
         buttonRightImage={Right}
+        carHeight="200px"
       />
 
       <Carousel
