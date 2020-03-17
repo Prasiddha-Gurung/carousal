@@ -19,10 +19,29 @@ export default function CarouselWindow({
 }) {
   const numberOfSlides = numberOfComponentsPerSlide - 1;
   const [firstSlideIndex, setFirstSlideIndex] = useState(0);
-  const [lastSlideIndex, setLastSlideIndex] = useState(numberOfSlides);
+  const [lastSlideIndex, setLastSlideIndex] = useState(
+    numberOfComponentsPerSlide - 1
+  );
   const translationAmount = 100 / numberOfComponentsPerSlide;
   const [translateDistance, setTranslateDistance] = useState(0);
+  const [componentPerSlide, setcomponentPerSlide] = useState(
+    numberOfComponentsPerSlide
+  );
   const track = useRef(null);
+  if (numberOfComponentsPerSlide > 1) {
+    navBarDisable = true;
+  }
+  // const handleWindowResize = () => {
+  //   if (window.innerwidth < 900) {
+  //     setcomponentPerSlide(1);
+  //   } else {
+  //     setcomponentPerSlide(numberOfComponentsPerSlide);
+  //   }
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleWindowResize);
+  //   return () => window.addEventListener("resize", handleWindowResize);
+  // });
   const moveTrack = () => {
     track.current.style.transform = "translateX(-" + translateDistance + "%)";
   };
@@ -50,24 +69,33 @@ export default function CarouselWindow({
   //   setFirstSlideIndex(id);
   //   setLastSlideIndex(id + numberOfComponentsPerSlide);
   // };
+  const interval = useRef(null);
+  interval.current = () => {
+    if (firstSlideIndex < content.length - numberOfComponentsPerSlide) {
+      incrementSlides();
+    } else {
+      setFirstSlideIndex(0);
+      setLastSlideIndex(numberOfSlides);
+      setTranslateDistance(0);
+    }
+  };
   useEffect(() => {
     if (autoScroll) {
-      const interval = setInterval(() => {
-        if (firstSlideIndex < content.length - numberOfComponentsPerSlide)
-          incrementSlides();
-        else {
-          setFirstSlideIndex(0);
-          setLastSlideIndex(numberOfSlides);
-          setTranslateDistance(0);
-        }
+      const id = setInterval(() => {
+        interval.current();
       }, 4500);
       return () => {
-        clearInterval(interval);
+        clearInterval(id);
       };
     }
-  });
+  }, [content]);
   useEffect(moveTrack, [translateDistance]);
-
+  function handleChange(newValue) {
+    setFirstSlideIndex(newValue);
+    setLastSlideIndex(newValue + numberOfComponentsPerSlide - 1);
+    const distance = newValue * (100 / numberOfComponentsPerSlide);
+    setTranslateDistance(distance);
+  }
   return (
     <div
       style={{
@@ -77,6 +105,7 @@ export default function CarouselWindow({
         flexDirection: "column",
         alignItems: "center"
       }}
+      className="Carousel-Container"
     >
       <CarouselViewport>
         <Button
@@ -111,9 +140,18 @@ export default function CarouselWindow({
           }
         />
       </CarouselViewport>
-      <div>
+      <div
+        style={{ visibility: navBarDisable ? "hidden" : "visible" }}
+        disabled={!navBarDisable}
+      >
         {content.map((item, i) => (
-          <NavBar id={i} active={i <= lastSlideIndex && i >= firstSlideIndex} />
+          <NavBar
+            id={i}
+            active={i <= lastSlideIndex && i >= firstSlideIndex}
+            value={firstSlideIndex}
+            onClick={handleChange}
+            disabled={navBarDisable}
+          />
         ))}
       </div>
     </div>
