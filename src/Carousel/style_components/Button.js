@@ -13,4 +13,8 @@ export default styled.button`
   );
   background: rgba(255, 255, 255, 0.1);
   visibility: ${props => (props.isActive ? "visible" : "hidden")};
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+  overflow: hidden;
 `;

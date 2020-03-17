@@ -1,5 +1,4 @@
 import React from "react";
-import "./Button.css";
 import ButtonWrapper from "../style_components/Button";
 
 export default function Button({
