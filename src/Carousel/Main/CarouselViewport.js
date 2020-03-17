@@ -84,18 +84,22 @@ export default function CarouselWindow({
   function handleChange(newValue) {
     setFirstSlideIndex(newValue);
     setLastSlideIndex(newValue + componentsPerSlide - 1);
-    const distance = newValue * (100 / componentsPerSlide);
-    setTranslateDistance(distance);
+    if (newValue === content.length - 1) {
+      newValue = newValue - 1;
+      const distance = newValue * (100 / componentsPerSlide);
+      setTranslateDistance(distance);
+    } else {
+      const distance = newValue * (100 / componentsPerSlide);
+      setTranslateDistance(distance);
+    }
   }
 
   const handleWindowResize = () => {
     const size = window.innerWidth;
     if (size < 800) {
       setcomponentPerSlide(1);
-      setLastSlideIndex(firstSlideIndex);
     } else {
       setcomponentPerSlide(numberOfComponentsPerSlide);
-      setLastSlideIndex(firstSlideIndex + numberOfComponentsPerSlide - 1);
     }
   };
   useEffect(() => {
@@ -104,6 +108,9 @@ export default function CarouselWindow({
   }, []);
   useEffect(() => {
     setTranslationAmount(100 / componentsPerSlide);
+    setFirstSlideIndex(0);
+    setLastSlideIndex(numberOfSlides);
+    setTranslateDistance(0);
   }, [componentsPerSlide]);
   return (
     <div
@@ -144,7 +151,7 @@ export default function CarouselWindow({
           transformDistance={"-100%"}
           isActive={
             buttonDisableOnEnds
-              ? firstSlideIndex < content.length - numberOfComponentsPerSlide
+              ? firstSlideIndex < content.length - componentsPerSlide
               : true
           }
         />
@@ -156,7 +163,7 @@ export default function CarouselWindow({
         {content.map((item, i) => (
           <NavBar
             id={i}
-            active={i <= lastSlideIndex && i >= firstSlideIndex}
+            active={i === firstSlideIndex}
             value={firstSlideIndex}
             onClick={handleChange}
             disabled={navBarDisable}
