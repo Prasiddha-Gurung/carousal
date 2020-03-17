@@ -22,26 +22,17 @@ export default function CarouselWindow({
   const [lastSlideIndex, setLastSlideIndex] = useState(
     numberOfComponentsPerSlide - 1
   );
-  const translationAmount = 100 / numberOfComponentsPerSlide;
+
   const [translateDistance, setTranslateDistance] = useState(0);
-  const [componentPerSlide, setcomponentPerSlide] = useState(
+  const [componentsPerSlide, setcomponentPerSlide] = useState(
     numberOfComponentsPerSlide
   );
+  const [translationAmount, setTranslationAmount] = useState(
+    100 / componentsPerSlide
+  );
+  console.log(componentsPerSlide);
+  console.log(translationAmount);
   const track = useRef(null);
-  // if (numberOfComponentsPerSlide > 1) {
-  //   navBarDisable = true;
-  // }
-  // const handleWindowResize = () => {
-  //   if (window.innerwidth < 900) {
-  //     setcomponentPerSlide(1);
-  //   } else {
-  //     setcomponentPerSlide(numberOfComponentsPerSlide);
-  //   }
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleWindowResize);
-  //   return () => window.addEventListener("resize", handleWindowResize);
-  // }, []);
   const moveTrack = () => {
     track.current.style.transform = "translateX(-" + translateDistance + "%)";
   };
@@ -58,7 +49,7 @@ export default function CarouselWindow({
     }
   };
   const incrementSlides = () => {
-    if (firstSlideIndex < content.length - numberOfComponentsPerSlide) {
+    if (firstSlideIndex < content.length - componentsPerSlide) {
       setFirstSlideIndex(firstSlideIndex => firstSlideIndex + 1);
       setLastSlideIndex(lastSlideIndex => lastSlideIndex + 1);
       setTranslateDistance(translateDistance + translationAmount);
@@ -67,11 +58,11 @@ export default function CarouselWindow({
 
   // const navbar = id => {
   //   setFirstSlideIndex(id);
-  //   setLastSlideIndex(id + numberOfComponentsPerSlide);
+  //   setLastSlideIndex(id + componentsPerSlide);
   // };
   const interval = useRef(null);
   interval.current = () => {
-    if (firstSlideIndex < content.length - numberOfComponentsPerSlide) {
+    if (firstSlideIndex < content.length - componentsPerSlide) {
       incrementSlides();
     } else {
       setFirstSlideIndex(0);
@@ -92,10 +83,28 @@ export default function CarouselWindow({
   useEffect(moveTrack, [translateDistance]);
   function handleChange(newValue) {
     setFirstSlideIndex(newValue);
-    setLastSlideIndex(newValue + numberOfComponentsPerSlide - 1);
-    const distance = newValue * (100 / numberOfComponentsPerSlide);
+    setLastSlideIndex(newValue + componentsPerSlide - 1);
+    const distance = newValue * (100 / componentsPerSlide);
     setTranslateDistance(distance);
   }
+
+  const handleWindowResize = () => {
+    const size = window.innerWidth;
+    if (size < 800) {
+      setcomponentPerSlide(1);
+      setLastSlideIndex(firstSlideIndex);
+    } else {
+      setcomponentPerSlide(numberOfComponentsPerSlide);
+      setLastSlideIndex(firstSlideIndex + numberOfComponentsPerSlide - 1);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.addEventListener("resize", handleWindowResize);
+  }, []);
+  useEffect(() => {
+    setTranslationAmount(100 / componentsPerSlide);
+  }, [componentsPerSlide]);
   return (
     <div
       style={{
@@ -122,7 +131,7 @@ export default function CarouselWindow({
                 key={item.id}
                 itemNumber={i}
                 item={item}
-                numberOfComponentsPerSlide={numberOfComponentsPerSlide}
+                numberOfComponentsPerSlide={componentsPerSlide}
                 selected={i <= lastSlideIndex && i >= firstSlideIndex}
               />
             ))}

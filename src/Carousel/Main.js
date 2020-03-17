@@ -30,10 +30,11 @@ export default function Main() {
         autoScroll={false}
         buttonLeftImage={Left}
         buttonRightImage={Right}
-        carHeight="200px"
+        carHeight="900px"
+        carWidth="700px"
       />
 
-      <Carousel
+      {/* <Carousel
         content={some2}
         numberOfComponentsPerSlide={1}
         buttonsInside={true}
@@ -41,7 +42,7 @@ export default function Main() {
         autoScroll={true}
         buttonLeftImage={Left}
         buttonRightImage={Right}
-      />
+      /> */}
     </div>
   );
 }
