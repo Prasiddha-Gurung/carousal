@@ -17,4 +17,7 @@ export default styled.button`
   cursor: pointer;
   z-index: 1;
   overflow: hidden;
+  button:focus {
+    outline: 0;
+  }
 `;
