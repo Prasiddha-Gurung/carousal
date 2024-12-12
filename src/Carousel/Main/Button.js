@@ -1,5 +1,5 @@
 import React from "react";
-import "./Button.css";
+import ButtonWrapper from "../style_components/Button";
 
 export default function Button({
   image,
@@ -11,7 +11,26 @@ export default function Button({
   controller
 }) {
   return (
-    <button
+    <ButtonWrapper
+      height={height}
+      width={width}
+      buttonInside={buttonInside}
+      transformDistance={transformDistance}
+      onClick={controller}
+      isActive={isActive}
+    >
+      <img
+        src={image}
+        style={{
+          height: "100%",
+          width: "100%"
+        }}
+      />
+    </ButtonWrapper>
+  );
+}
+{
+  /* <button
       style={{
         height: `${height}`,
         width: `${width}`,
@@ -22,7 +41,6 @@ export default function Button({
       disabled={!isActive}
       onClick={controller}
     >
-      <img src={image} />
-    </button>
-  );
+      
+    </button> */
 }

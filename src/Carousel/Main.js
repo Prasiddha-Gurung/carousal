@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "./Main/Carousel";
 import Test from "./test";
+import Left from "./Images/left.svg";
+import Right from "./Images/right.svg";
 export default function Main() {
   const [stuff, setStuff] = useState([]);
   const getData = () => {
@@ -26,6 +28,9 @@ export default function Main() {
         buttonsInside={false}
         buttonDisableOnEnds={true}
         autoScroll={false}
+        buttonLeftImage={Left}
+        buttonRightImage={Right}
+        carHeight="200px"
       />
 
       <Carousel
@@ -34,6 +39,8 @@ export default function Main() {
         buttonsInside={true}
         buttonDisableOnEnds={true}
         autoScroll={true}
+        buttonLeftImage={Left}
+        buttonRightImage={Right}
       />
     </div>
   );
